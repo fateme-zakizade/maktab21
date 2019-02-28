@@ -1,0 +1,60 @@
+@font-face {
+    font-family: IRANSans;
+    src: url('/Shabnam.ttf');
+}
+*{
+    font-family: IRANSans!important;
+   
+}
+/* html{
+  font-size:1.5vw;
+}
+@media only screen and (max-width: 768px)
+   {
+    html{
+        font-size:14px!important;
+      }
+   } */
+.tooltip
+{
+  font-size: 10px!important;
+}
+   @media only screen and (min-width: 768px)
+   {
+     .card-height
+     {
+       height: 265px!important;
+     }
+     .card-height>div,.card-height>div>img {
+       height: 100%!important;
+
+     }
+   }
+   .article>.card{
+    -webkit-transition: all 200ms ease-in;
+    -ms-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+   }
+  .article>.card:hover{
+
+    -webkit-transform: scale(1.005);
+    -ms-transform: scale(1.005);   
+    -moz-transform: scale(1.005);
+    transform: scale(1.005);
+
+  }
+  .hover-scale:hover{
+    -webkit-transform: scale(1.01);
+    -ms-transform: scale(1.01);   
+    -moz-transform: scale(1.01);
+    transform: scale(1.01);
+
+  }
+  .new-filter::after{
+    background-color: rgba(54, 22, 22, 0.589);
+  }
+  .bg-image{
+    background-image: url('/12.jpg')
+  }
+   
