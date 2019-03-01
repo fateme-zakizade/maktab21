@@ -31,7 +31,6 @@ class AddNewArticle extends Component{
 send=(e)=>{
     e.preventDefault();
     const {text,title}=this.state.addNew;
-    console.log(text+"  "+title)
     if( text && title && text.length>0 && title.length>0 ? true : false)
     {
         Axios.post('//localhost:5000/panel/addNewArticle',this.state.addNew)
@@ -57,6 +56,7 @@ send=(e)=>{
        const {user,message}=this.state;
         return (
             <>
+            <MenuUSer display={"ana"} user={user}/>
              <div className=" d-flex flex-md-row" style={{height:"1000px"}}>
             <div className="displayTable col-12 col-md-10" style={{direction:"rtl"}}>
             <div className="col-md-8 col-12 container py-5">
@@ -76,10 +76,9 @@ send=(e)=>{
             </div>
             <button type="submit" className="btn btn-primary" >ذخیره</button>
             </form>
+            </div> 
             </div>
             
-            </div>
-            <MenuUSer display={"ana"} user={user}/>
             </div>
             
             </>

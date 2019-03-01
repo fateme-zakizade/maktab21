@@ -21,7 +21,7 @@ class MyArticle extends Component {
         Axios.post('//localhost:5000/panel/mayArticle', {showPage:1, row:this.state.row })
             .then(response => {
                 if (response.data.islogin) {
-                    console.log(response.data.article)
+                    
                     this.setState({data: response.data.article,numberData: response.data.number,newData:false,user:response.data.user})
                 } else {
 
@@ -170,12 +170,14 @@ closeEdit=()=>{
             else
                 min = 0;
         }
+        //////////////////////////////
         ///////////////////////////////////////////////////////////////////////
         if(edit)
         {
             return(
             <>
-             <div className=" d-flex flex-md-row" style={{height:"1000px"}}>
+             <MenuUSer display={"ma"} user={user}/>
+             <div className=" d-flex flex-row" style={{height:"1000px"}}>
              <div className="displayTable col-12 col-md-10 px-0">
             <div className="w-100 py-5" style={{backgroundColor:"#e91e6213"}}>
             <div className="container col-11 bg-white" style={{}}>
@@ -184,12 +186,12 @@ closeEdit=()=>{
             </div>
             </div>
             </div>
-            <MenuUSer display={"ma"} user={user}/>
-                            </div>
+           </div>
             </>)
         }
         else{
             return ( <>
+             <MenuUSer display={"ma"} user={user}/>
                 <div className=" d-flex flex-md-row" style={{height:"1000px"}}>
                             <div className="displayTable col-12 col-md-10 px-0">
                             <table style={{marginTop:"5em",display:"flex",justifyContent:"center",backgroundColor:"red",direction:"rtl"}}>
@@ -218,7 +220,7 @@ closeEdit=()=>{
                         </div>
                 
                             </div>
-                            <MenuUSer display={"ma"} user={user}/>
+                            {/* <MenuUSer display={"ma"} user={user}/> */}
                             </div>
                             
                           </>

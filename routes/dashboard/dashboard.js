@@ -44,6 +44,7 @@ router.post("/addNewArticle",function(req,res)
 
 })
   router.post('/user', function(req, res, next) {
+   
     let data={
       user:{
         firstName:req.user.firstName,
@@ -107,7 +108,6 @@ router.post("/editArticle",function(req,res)
     if(!err)
     {
       data.sucsses=true;
-      console.log(data)
       res.json(data)
     }
     else
@@ -125,18 +125,13 @@ router.post("/editArticle",function(req,res)
 router.post("/seecomment",(req,res)=>{
 
   const {id}=req.body;
-  console.log("#########################")
   Article.findById(id,(err,article)=>{
-    console.log(id)
-    console.log(article)
     Comment.find({articleId:id}).populate("userId").sort("-date").exec((err,coment)=>{
       let data={
         article:article,
         comment:coment,
         user:req.user
       }
-      console.log("*********************************");
-      console.log(data)
       res.json(data);
 
     })
