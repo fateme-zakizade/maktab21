@@ -24,6 +24,8 @@ class AddNewArticle extends Component{
         //////////////////////////////////////////////////////////
     onchange=({target:{name,value}})=>{
         const {addNew} = this.state;
+        
+        
     this.setState({addNew:{...addNew,[name]: value},message:""}) ;
 
     }
@@ -33,7 +35,13 @@ send=(e)=>{
     const {text,title}=this.state.addNew;
     if( text && title && text.length>0 && title.length>0 ? true : false)
     {
-        Axios.post('//localhost:5000/panel/addNewArticle',this.state.addNew)
+        let formData = new FormData()
+        const {addNew}=this.state;
+       
+        formData.append('image', addNew.image);
+        formData.append('title',title);
+        formData.append("text",text);
+        Axios.post('//localhost:5000/panel/addNewArticle',formData)
         .then(response => {
             if(response.data.send)
                 this.setState({message:"با موفقیت ذخیره شد"})
@@ -48,6 +56,10 @@ send=(e)=>{
     }
     
    
+}
+onChangeFile=({target:{name,files}})=>{
+    const {addNew}=this.state;
+    this.setState({addNew:{...addNew,[name]: files[0]},message:""}) ;
 }
 ///////////////////////////////////////////////////////////////////
 
@@ -68,7 +80,7 @@ send=(e)=>{
             </div>
             <div className="form-group text-right">
             <label >عکس را انتخاب کنید</label> 
-			<input type="file" name="image" className="form-control-file border" />
+			<input type="file" name="image" className="form-control-file border" onChange={this.onChangeFile} />
             </div>
             <div className="form-group text-right">
             <label >متن مقاله:</label>

@@ -3,34 +3,41 @@ const router = express.Router();
 const path=require('path');
 const Article = require('../../models/articles');
 const Comment= require('../../models/comments');
-let temp = [];
-for (let i = 0; i < 25; ++i) {
-  let data = {};
-  data._id=i;
- // data.text = "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.";
-  data.date = Date.now;
-  data.image = "image-profiles/option1.png";
-  data.tilte = i+1;
-  temp.push(data);
-}
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/image-article/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.user.userName+file.originalname);
+  }
+})
+const upload = multer({
+  storage: storage
+});
 
 router.get('/*', function(req, res, next) {
     res.sendFile('index.html',{root : path.join(__dirname,'../../panel/build/')} );
   });
 
-router.post("/addNewArticle",function(req,res)
+router.post("/addNewArticle",upload.single("image"),function(req,res)
 {
   let data={
     send:false,
   }
-  let {text,image,title} = req.body;
+  let {text,title} = req.body;
+  let adressImage = ``;
+  if (req.file) {
+    adressImage = `image-article/${req.user.userName}${req.file.originalname}`;
+  }
   const article = new Article({
     text: text ,
     userId: req.user._id,
-    image: image,
+    image: adressImage,
     title: title,
   });
-
   article.save((error, user) => {
     if(error)
     res.json(data);
@@ -132,7 +139,10 @@ router.post("/seecomment",(req,res)=>{
         comment:coment,
         user:req.user
       }
-      res.json(data);
+      Comment.updateMany({articleId:id},{$set:{seen:true}},(e,d)=>{
+        res.json(data);
+      });
+      
 
     })
   })
