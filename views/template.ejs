@@ -57,7 +57,7 @@
                   </a>
                 </li>
                 <li class="nav-item ">
-                    <a  class="nav-link py-2" style="font-size: 14px" href="/exit"   onmouseover="this.classList.add('btn');this.classList.add('btn-rose')" onmouseout="this.classList.remove('btn');this.classList.remove('btn-rose')" rel="tooltip" title="" data-placement="bottom"  >
+                    <a  class="nav-link py-2" style="font-size: 14px" href="/"   onmouseover="this.classList.add('btn');this.classList.add('btn-rose')" onmouseout="this.classList.remove('btn');this.classList.remove('btn-rose')" rel="tooltip" title="" data-placement="bottom"  >
                       <div class="ripple-container"></div> خانه</a>
                   </li>
               <%}%>
@@ -272,6 +272,7 @@
       </div>
 
 <!-- ///////////////////////////////////////////////////////////////////////// -->
+<%if(!data.eror){%>
       <div class="article py-5">
           <%data.articles.forEach(function(article,index){%>
             <div class="card d-flex  <%=index%2===0 ?  'flex-md-row-reverse' : 'flex-md-row'  %>   card-height" style="margin-bottom: 80px">
@@ -301,6 +302,7 @@
             </div>
             <%})%>
       </div>
+      <%}%>
 <!-- /////////////////////////////////////////////////////////////////////// -->
 
 
