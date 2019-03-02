@@ -17,10 +17,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/testtest")
+mongoose.connect("mongodb://localhost:27017/finalProject")
 
-
-
+const initial=require("./tools/initialize")
+initial();
 const app = express();
 app.use(flash());
 
@@ -32,7 +32,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, '/panel/build/'),{index: false,maxAge:'7d'}));
 
