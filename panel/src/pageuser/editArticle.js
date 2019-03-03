@@ -10,8 +10,11 @@ class EditArticle extends Component {
             waite:true,
             eror:true,
         }
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         Axios.post('//localhost:5000/panel/getArticle',{id:id})
             .then(response => {
+                console.log("************************")
+                console.log(response.data)
                 if(response.data.sucsses)
                     this.setState({message:"",article:response.data.article,waite:false,eror:false})
                     else
@@ -80,7 +83,7 @@ class EditArticle extends Component {
             </div>
             <div className="form-group text-right">
             <label >عکس را انتخاب کنید</label> 
-			<input type="file" name="image" value={article.image} className="form-control-file border" />
+			<input type="file" name="image" className="form-control-file border" />
             </div>
             <div className="form-group text-right">
             <label >متن مقاله:</label>

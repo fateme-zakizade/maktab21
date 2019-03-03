@@ -90,6 +90,7 @@ router.post("/getArticle",function(req,res)
      {
        data.article=article;
        data.sucsses=true;
+       console.log(data);
        res.json(data);
      }
      else{
@@ -100,17 +101,19 @@ router.post("/getArticle",function(req,res)
 })
 
 
-router.post("/editArticle",function(req,res)
+router.post("/editArticle",upload.single("image"),function(req,res)
 {
-  let {id}=req.body;
-  const {article}=req.body;
   let data={
     sucsses:false,
   }
- 
-  if(req.user._id.equals(article.userId._id) || req.user.role==="admin" )
+  let {text,title,idUser,idArticle,id} = req.body;
+  let adressImage = ``;
+  if (req.file) {
+    adressImage = `image-article/${req.user.userName}${req.file.originalname}`;
+  }
+  if(req.user._id.equals(idUser) || req.user.role==="admin" )
   {
-  Article.updateOne({_id:id},{$set: {image: article.image,text:article.text,title:article.title}},function(err,result)
+  Article.updateOne({_id:idArticle},{$set: {image: adressImage,text:text,title:title}},function(err,result)
   {
     if(!err)
     {

@@ -25,9 +25,16 @@ class EditArticle extends Component {
         e.preventDefault();
         const {article}=this.state;
         const {id}=this.props;
+        let formData = new FormData()
+       
+        formData.append('image', article.image);
+        formData.append('title',article.title);
+        formData.append("text",article.text);
+        formData.append("idUser",article.userId._id);
+        formData.append("idArticle",id);
         if( article.text && article.title && article.text.length>0 && article.title.length>0 ? true : false)
         {
-            Axios.post('//localhost:5000/panel/editArticle',{article:article,id:id})
+            Axios.post('//localhost:5000/panel/editArticle',formData)
             .then(response => {
                
                 if(response.data.sucsses)
@@ -57,7 +64,11 @@ class EditArticle extends Component {
     this.setState({article:{...article,[name]: value},message:""}) ;
 
     }
+    onChangeFile=({target:{name,files}})=>{
 
+        const {article} = this.state;
+        this.setState({article:{...article,[name]: files[0]},message:""}) ;
+    }
 
 
     render()
@@ -80,7 +91,7 @@ class EditArticle extends Component {
             </div>
             <div className="form-group text-right">
             <label >عکس را انتخاب کنید</label> 
-			<input type="file" name="image" value={article.image} className="form-control-file border" />
+			<input type="file" name="image" onChange={this.onChangeFile} className="form-control-file border" />
             </div>
             <div className="form-group text-right">
             <label >متن مقاله:</label>
