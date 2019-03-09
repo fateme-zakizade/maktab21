@@ -62,18 +62,32 @@ router.post("/addNewArticle",upload.single("image"),function(req,res)
    res.json(data)
   });
   
-  router.post("/mayArticledelet",function(req,res)
+  router.post("/mayArticleDelet",function(req,res)
   {
     let {id}=req.body;
-    Article.deleteOne({_id:id},function(err)
+    if(id)
     {
-      Comment.deleteMany({articleId:id},function(err)
+      Article.deleteOne({_id:id},function(err)
+    {
+      if(!err)
       {
+        Comment.deleteMany({articleId:id},function(err)
+      {
+        if(!err)
         res.redirect(307,"/panel/mayArticle");
       })
+      }
+      
+      
        
 
     })
+
+    }
+    else{
+
+    }
+    
   })
 
 

@@ -74,7 +74,7 @@ click=(e)=>{
 delet =(key)=>{
         const{row,show,i}=this.state;
         this.setState({newData:true});
-        Axios.post('//localhost:5000/panel/mayArticledelet', {showPage:i[show], row:row,id:key })
+        Axios.post('//localhost:5000/panel/mayArticleDelet', {showPage:i[show], row:row,id:key })
         .then(response => {
             // const {i}=this.pagination(response.data.number);
            
